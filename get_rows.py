@@ -76,17 +76,21 @@ def get_rows(hdap_ids=None, size=500, csvFile="data.csv"):
 	outputFile = open(csvFile, 'w', newline='')
 	outputWriter = csv.DictWriter(outputFile, fieldnames = keys, extrasaction='ignore')
 	outputWriter.writeheader()
-
+	print("total results {}".format(len(jsonResponse)))
+	count = 0
 	for row in jsonResponse:
 		outputWriter.writerow(row["_source"])
+		count = count + 1
 	outputFile.close()
+	print("number of written responses {}".format(count))
 	print("Data written to {}".format(csvFile))
-
-if __name__ == '__main__':
-
-	hdap_ids = input("HDAP Ids (Comma seperated list): ").split(",")
-	if not any(hdap_ids):
-		 sys.exit("1 or more hdap IDs are required")
-	else:
-		print("Loading Data..")
-		get_rows(hdap_ids=hdap_ids)
+#
+# if __name__ == '__main__':
+#
+# 	hdap_ids = input("HDAP Ids (Comma seperated list): ").split(",")
+# 	if not any(hdap_ids):
+# 		 sys.exit("1 or more hdap IDs are required")
+# 	else:
+# 		print("Loading Data..")
+# 		print(hdap_ids)
+# 		get_rows(hdap_ids=hdap_ids)
